@@ -2,7 +2,7 @@ import React from 'react';
 import { FaListUl, FaImages, FaLock, FaPlayCircle } from 'react-icons/fa';
 import './Features.scss';
 
-const Features = () => {
+const Features = ({ openVideoModal }) => {
     const featureList = [
         {
             icon: <FaListUl />,
@@ -12,7 +12,9 @@ const Features = () => {
         {
             icon: <FaImages />,
             title: "Capítulos com Thumbnails",
-            description: "Making of, Cerimônia, Votos e Festa. Tudo separado em capítulos visuais para facilitar a navegação."
+            description: "Making of, Cerimônia, Votos e Festa. Tudo separado em capítulos visuais para facilitar a navegação.",
+            onClick: openVideoModal,
+            clickable: true
         },
         {
             icon: <FaLock />,
@@ -35,7 +37,12 @@ const Features = () => {
 
             <div className="features-grid">
                 {featureList.map((feat, index) => (
-                    <div key={index} className="feature-card glass-panel">
+                    <div
+                        key={index}
+                        className={`feature-card glass-panel ${feat.clickable ? 'clickable-card' : ''}`}
+                        onClick={feat.onClick ? feat.onClick : undefined}
+                        style={feat.clickable ? { cursor: 'pointer' } : {}}
+                    >
                         <div className="feature-card__icon text-gradient">
                             {feat.icon}
                         </div>

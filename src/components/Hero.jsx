@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FaPlayCircle, FaWhatsapp } from 'react-icons/fa';
-import VideoModal from './VideoModal';
 import { getWhatsAppUrl } from '../utils/whatsapp';
 import './Hero.scss';
 
-const Hero = () => {
-    const [isVideoOpen, setIsVideoOpen] = useState(false);
-
+const Hero = ({ openVideoModal }) => {
     return (
         <section className="hero">
-            <VideoModal isOpen={isVideoOpen} onClose={() => setIsVideoOpen(false)} />
+
 
             <div className="hero__background">
                 {/* We'll use a CSS gradient overlay on top of an abstract luxury image or just pure CSS */}
@@ -30,7 +27,7 @@ const Hero = () => {
                 </p>
 
                 <div className="hero__actions">
-                    <button className="btn btn-primary" onClick={() => setIsVideoOpen(true)}>
+                    <button className="btn btn-primary" onClick={openVideoModal}>
                         Ver Demonstração <FaPlayCircle />
                     </button>
                     <button

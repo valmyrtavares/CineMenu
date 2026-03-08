@@ -59,4 +59,30 @@
         line-height: 1.6;
         font-size: 0.95rem;
     }
+
+    &.clickable-card {
+        cursor: pointer;
+
+        &::after {
+            content: 'Clique para Ver Duração e Capítulos';
+            position: absolute;
+            bottom: 0.8rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            color: var(--color-accent-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-family: var(--font-body);
+            white-space: nowrap;
+        }
+
+        &:hover {
+            box-shadow: 0 10px 30px rgba(var(--color-neon-glow-rgb), 0.2);
+
+            &::after {
+                opacity: 1;
+            }
+        }
+    }
 }

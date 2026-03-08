@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import './VideoModal.scss';
 
-const VideoModal = ({ isOpen, onClose }) => {
+const VideoModal = ({ isOpen, onClose, startTime = 0 }) => {
     // Close modal when pressing Escape key
     useEffect(() => {
         const handleEsc = (e) => {
@@ -22,7 +22,7 @@ const VideoModal = ({ isOpen, onClose }) => {
                 </button>
                 <div className="video-responsive-wrapper">
                     <iframe
-                        src="https://player.vimeo.com/video/1171531737?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1"
+                        src={`https://player.vimeo.com/video/1171531737?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1#t=${startTime}s`}
                         frameBorder="0"
                         allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                         title="DVDWEB.mov"
