@@ -301,3 +301,79 @@
         transform: scale(1);
     }
 }
+
+/* Password Modal Styles */
+.password-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.85);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    animation: fadeIn 0.3s ease forwards;
+    padding: var(--spacing-md);
+}
+
+.password-modal-content {
+    background: #111;
+    padding: 3rem;
+    border-radius: var(--radius-md);
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 20px rgba(var(--color-neon-glow-rgb), 0.2);
+
+    h3 {
+        font-family: var(--font-heading);
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+        line-height: 1.6;
+    }
+
+    .password-box {
+        background: rgba(0, 0, 0, 0.5);
+        border: 1px dashed var(--color-accent-primary);
+        padding: 1.5rem;
+        border-radius: var(--radius-sm);
+        margin-bottom: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+
+        span {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        strong {
+            font-family: monospace;
+            font-size: 2.5rem;
+            color: #fff;
+            letter-spacing: 0.2em;
+        }
+    }
+
+    .password-modal-actions {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+
+        .btn {
+            flex: 1;
+        }
+    }
+}

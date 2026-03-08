@@ -6,6 +6,7 @@ import './InteractiveDemo.scss';
 const InteractiveDemo = () => {
     const [view, setView] = useState('main'); // 'main' | 'chapters' | 'playing'
     const [activeChapter, setActiveChapter] = useState(0);
+    const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
     const iframeRef = useRef(null);
     const playerRef = useRef(null);
 
@@ -159,19 +160,42 @@ const InteractiveDemo = () => {
             {/* Application CTA below the player */}
             <div className="real-app-cta" style={{ textAlign: 'center', marginTop: '3rem' }}>
                 <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem' }}>Gostou? Veja como o aplicativo fica no celular do seu cliente!</p>
-                <a
-                    href="https://dvd-web-nine.vercel.app/karina-e-jorge"
-                    target="_blank"
-                    rel="noopener noreferrer"
+                <button
+                    onClick={() => setIsPasswordModalOpen(true)}
                     className="btn btn-primary"
                     style={{ display: 'inline-flex', alignItems: 'center', gap: '10px' }}
                 >
                     Acessar o Aplicativo Real <FaExternalLinkAlt style={{ fontSize: '0.9em' }} />
-                </a>
-                <p style={{ fontSize: '0.9rem', color: 'var(--color-accent-primary)', marginTop: '0.8rem', fontWeight: 'bold' }}>
-                    Senha de acesso: 123456
-                </p>
+                </button>
             </div>
+
+            {/* Password Prompt Modal */}
+            {isPasswordModalOpen && (
+                <div className="password-modal-overlay" onClick={() => setIsPasswordModalOpen(false)}>
+                    <div className="password-modal-content glass-panel" onClick={(e) => e.stopPropagation()}>
+                        <h3 className="text-gradient">Atenção ao Acessar</h3>
+                        <p>O aplicativo de demonstração final possui uma proteção por senha simulando a privacidade dos noivos.</p>
+                        <div className="password-box">
+                            <span>Use a senha:</span>
+                            <strong>123456</strong>
+                        </div>
+                        <div className="password-modal-actions">
+                            <button className="btn btn-secondary" onClick={() => setIsPasswordModalOpen(false)}>
+                                Cancelar
+                            </button>
+                            <a
+                                href="https://dvd-web-nine.vercel.app/karina-e-jorge"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="btn btn-primary"
+                                onClick={() => setIsPasswordModalOpen(false)}
+                            >
+                                Continuar para o App
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            )}
         </section>
     );
 };
