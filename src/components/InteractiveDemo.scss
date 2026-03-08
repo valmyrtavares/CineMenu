@@ -20,178 +20,300 @@
 
 .demo-player {
     max-width: 1000px;
+    height: 600px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
+    position: relative;
     overflow: hidden;
     border: 1px solid var(--color-accent-primary);
     box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px var(--color-neon-glow);
     border-radius: var(--radius-lg);
+    background: var(--color-bg-base);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     @media (max-width: 768px) {
-        grid-template-columns: 1fr;
-        grid-template-rows: 60vw auto;
+        height: 500px;
     }
 
-    &__video {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: var(--color-bg-base);
-        transition: background 0.5s ease;
-        border-right: 1px solid var(--glass-border);
+    &__bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center;
+        transition: all 1s ease;
+        z-index: 1;
+
+        &::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(10, 10, 10, 0.9) 0%, rgba(10, 10, 10, 0.4) 100%);
+        }
+    }
+}
+
+/* DVD Menu Shared */
+.dvd-menu,
+.dvd-playing {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    padding: var(--spacing-xl);
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.5s ease;
+}
+
+/* Main Menu */
+.main-menu {
+    justify-content: center;
+    align-items: flex-start;
+
+    .dvd-menu__title {
+        font-family: var(--font-heading);
+        font-size: 3.5rem;
+        margin-bottom: 3rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        text-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
 
         @media (max-width: 768px) {
-            border-right: none;
-            border-bottom: 1px solid var(--glass-border);
+            font-size: 2.5rem;
         }
     }
 
-    &__play-btn {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        background: rgba(20, 20, 20, 0.6);
-        border: 2px solid var(--color-accent-primary);
-        color: var(--color-accent-primary);
-        font-size: 2rem;
+    .dvd-menu__options {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        backdrop-filter: blur(4px);
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+}
+
+/* Chapters Menu */
+.chapters-menu {
+    justify-content: center;
+
+    .dvd-menu__title {
+        font-family: var(--font-heading);
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--color-accent-primary);
+    }
+
+    .dvd-menu__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+
+        @media (max-width: 768px) {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            max-height: 300px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+    }
+}
+
+/* Buttons */
+.dvd-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    font-family: var(--font-heading);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem 0;
+    position: relative;
+    transform: translateX(0);
+    transition: all 0.3s ease;
+    opacity: 0.7;
+
+    .btn-icon {
+        font-size: 1.2rem;
+        color: var(--color-accent-primary);
+        opacity: 0;
+        transform: translateX(-10px);
         transition: all 0.3s ease;
-        z-index: 10;
-        padding-left: 6px; // optical alignment for play icon
+    }
+
+    &:hover,
+    &:focus {
+        opacity: 1;
+        transform: translateX(20px);
+        color: var(--color-accent-primary);
+
+        .btn-icon {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    &.back-btn {
+        font-size: 1.2rem;
+        opacity: 0.5;
+        margin-top: auto;
+        align-self: center;
 
         &:hover {
-            transform: translate(-50%, -50%) scale(1.1);
-            background: var(--color-accent-primary);
-            color: var(--color-bg-base);
-            box-shadow: 0 0 20px var(--color-neon-glow);
-        }
-
-        // reset padding if pause icon
-        &:has(.fa-pause) {
-            padding-left: 0;
+            transform: translateY(-5px);
+            opacity: 1;
         }
     }
+}
 
-    &__idle-state {
-        font-size: 8rem;
-        opacity: 0.2;
-        animation: floating 6s ease-in-out infinite;
-    }
+/* Chapter Cards */
+.chapter-card {
+    height: 180px;
+    border-radius: var(--radius-sm);
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    border: 2px solid transparent;
+    transition: all 0.4s ease;
 
-    &__playing-state {
+    &__overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 1rem;
+        justify-content: center;
+        transition: all 0.4s ease;
+        padding: 1rem;
+        text-align: center;
+
+        .play-icon {
+            font-size: 2.5rem;
+            color: var(--color-accent-primary);
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .chapter-title {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--text-primary);
+            transition: transform 0.3s ease;
+        }
+
+        .chapter-duration {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+    }
+
+    &:hover {
+        border-color: var(--color-accent-primary);
+        transform: scale(1.05);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+
+        .chapter-card__overlay {
+            background: rgba(0, 0, 0, 0.3);
+
+            .play-icon {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            .chapter-title {
+                transform: translateY(10px);
+            }
+
+            .chapter-duration {
+                opacity: 0;
+            }
+        }
+    }
+}
+
+/* Playing View */
+.dvd-playing {
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+
+    .playing-indicator {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
         font-family: var(--font-heading);
-        font-size: 1.5rem;
+        font-size: 1.8rem;
         color: var(--text-primary);
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+        margin-bottom: auto;
+        margin-top: auto;
 
         .pulse-ring {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
             border: 2px solid var(--color-accent-primary);
             animation: ripple 2s linear infinite;
         }
     }
 
-    &__menu {
-        padding: var(--spacing-md);
-        background: rgba(10, 10, 10, 0.8);
-
-        .menu-title {
-            font-size: 1.25rem;
-            margin-bottom: var(--spacing-md);
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            border-bottom: 1px solid var(--glass-border);
-            padding-bottom: 0.5rem;
-        }
-
-        .chapter-list {
-            display: flex;
-            flex-direction: column;
-            gap: var(--spacing-sm);
-        }
-    }
-}
-
-.chapter-item {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    background: transparent;
-    border: 1px solid transparent;
-    padding: 0.75rem 1rem;
-    border-radius: var(--radius-sm);
-    color: var(--text-primary);
-    text-align: left;
-    cursor: pointer;
-    transition: all 0.2s ease;
-
-    &__icon {
-        font-size: 1.5rem;
-        color: var(--text-muted);
-        transition: color 0.2s ease;
-    }
-
-    &__info {
+    .player-controls {
         display: flex;
-        flex-direction: column;
-    }
+        gap: 1.5rem;
+        background: rgba(10, 10, 10, 0.8);
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
 
-    &__title {
-        font-size: 1.1rem;
-        font-family: var(--font-heading);
-        font-weight: 500;
-    }
+        .control-btn {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.2s;
 
-    &__duration {
-        font-size: 0.85rem;
-        color: var(--text-muted);
-    }
+            &:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
 
-    &:hover {
-        background: rgba(255, 255, 255, 0.05);
-    }
-
-    &.active {
-        background: linear-gradient(90deg, rgba(212, 175, 55, 0.1) 0%, transparent 100%);
-        border-left: 3px solid var(--color-accent-primary);
-        border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-
-        .chapter-item__icon {
-            color: var(--color-accent-primary);
-        }
-
-        .chapter-item__title {
-            color: var(--color-accent-primary);
+            &.active {
+                color: var(--color-accent-primary);
+                font-size: 1.2rem;
+            }
         }
     }
 }
 
-@keyframes floating {
-
-    0%,
-    100% {
-        transform: translateY(0);
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
     }
 
-    50% {
-        transform: translateY(-10px);
+    to {
+        opacity: 1;
+        transform: scale(1);
     }
 }
 
