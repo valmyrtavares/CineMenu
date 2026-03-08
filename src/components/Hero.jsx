@@ -1,10 +1,15 @@
-import React from 'react';
-import { FaPlayCircle } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaPlayCircle, FaWhatsapp } from 'react-icons/fa';
+import VideoModal from './VideoModal';
 import './Hero.scss';
 
 const Hero = () => {
+    const [isVideoOpen, setIsVideoOpen] = useState(false);
+
     return (
         <section className="hero">
+            <VideoModal isOpen={isVideoOpen} onClose={() => setIsVideoOpen(false)} />
+
             <div className="hero__background">
                 {/* We'll use a CSS gradient overlay on top of an abstract luxury image or just pure CSS */}
                 <div className="hero__glow"></div>
@@ -24,12 +29,18 @@ const Hero = () => {
                 </p>
 
                 <div className="hero__actions">
-                    <button className="btn btn-primary">
+                    <button className="btn btn-primary" onClick={() => setIsVideoOpen(true)}>
                         Ver Demonstração <FaPlayCircle />
                     </button>
-                    <button className="btn btn-secondary">
-                        Falar com a Equipe
-                    </button>
+                    <a
+                        href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20falar%20com%20a%20equipe%20sobre%20o%20CineMenu!"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-secondary"
+                        style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
+                    >
+                        Falar com a Equipe <FaWhatsapp />
+                    </a>
                 </div>
             </div>
         </section>
