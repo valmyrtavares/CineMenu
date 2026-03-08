@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FaPlayCircle, FaWhatsapp } from 'react-icons/fa';
 import VideoModal from './VideoModal';
+import { getWhatsAppUrl } from '../utils/whatsapp';
 import './Hero.scss';
 
 const Hero = () => {
@@ -32,15 +33,13 @@ const Hero = () => {
                     <button className="btn btn-primary" onClick={() => setIsVideoOpen(true)}>
                         Ver Demonstração <FaPlayCircle />
                     </button>
-                    <a
-                        href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20falar%20com%20a%20equipe%20sobre%20o%20CineMenu!"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                    <button
+                        onClick={() => window.open(getWhatsAppUrl("Olá, gostaria de falar com a equipe sobre o CineMenu!"), "_blank", "noopener,noreferrer")}
                         className="btn btn-secondary"
                         style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}
                     >
                         Falar com a Equipe <FaWhatsapp />
-                    </a>
+                    </button>
                 </div>
             </div>
         </section>

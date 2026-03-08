@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaWhatsapp, FaEnvelope } from 'react-icons/fa';
+import { getWhatsAppUrl } from '../utils/whatsapp';
 import './Contact.scss';
 
 const Contact = () => {
@@ -10,9 +11,12 @@ const Contact = () => {
                 <div className="cta-box glass-panel text-center">
                     <h2 className="cta-title">Pronto para elevar o nível das suas entregas?</h2>
                     <p className="cta-subtitle">Deixe seus clientes sem palavras entregando o casamento num formato inovador, elegante e eterno.</p>
-                    <a href="https://wa.me/5511999999999?text=Olá,%20tenho%20interesse%20no%20sistema%20de%20DVD%20Interativo" target="_blank" rel="noopener noreferrer" className="btn btn-primary cta-btn">
+                    <button
+                        onClick={() => window.open(getWhatsAppUrl("Olá, tenho interesse no sistema de DVD Interativo!"), "_blank", "noopener,noreferrer")}
+                        className="btn btn-primary cta-btn"
+                    >
                         Garantir Meu Acesso Agora <FaWhatsapp />
-                    </a>
+                    </button>
                 </div>
 
                 <div className="footer-content">
@@ -23,9 +27,13 @@ const Contact = () => {
 
                     <div className="footer-links">
                         <h4>Contato</h4>
-                        <a href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer" className="contact-link">
+                        <button
+                            onClick={() => window.open(getWhatsAppUrl("Olá! Vim pelo site CineMenu."), "_blank", "noopener,noreferrer")}
+                            className="contact-link"
+                            style={{ background: 'transparent', border: 'none', cursor: 'pointer', fontFamily: 'inherit' }}
+                        >
                             <FaWhatsapp /> WhatsApp
-                        </a>
+                        </button>
                         <a href="mailto:contato@exemplo.com" className="contact-link">
                             <FaEnvelope /> Email
                         </a>
