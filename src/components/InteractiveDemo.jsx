@@ -158,7 +158,7 @@ const InteractiveDemo = () => {
             </div>
 
             {/* Application CTA below the player */}
-            <div className="real-app-cta" style={{ textAlign: 'center', marginTop: '3rem' }}>
+            <div className="real-app-cta" style={{ textAlign: 'center', marginTop: '1.5rem' }}>
                 <p style={{ color: 'var(--text-secondary)', marginBottom: '1rem' }}>Gostou? Veja como o aplicativo fica no celular do seu cliente!</p>
                 <button
                     onClick={() => setIsPasswordModalOpen(true)}

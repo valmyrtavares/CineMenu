@@ -19,8 +19,8 @@ function App() {
     <div className="app-container">
       <VideoModal isOpen={isVideoOpen} onClose={() => setIsVideoOpen(false)} startTime={videoStartTime} />
       <Hero openVideoModal={() => openVideoModal(0)} />
+      <Features openVideoModal={openVideoModal} />
       <ProblemStatement />
-      <Features openVideoModal={() => openVideoModal(38)} />
       <InteractiveDemo />
       <Contact />
     </div>
