@@ -40,8 +40,8 @@ const Contact = () => {
                         <FaWhatsapp /> <span>Falar no WhatsApp</span>
                     </button>
                     <div className="email-wrapper">
-                        <a 
-                            href={`mailto:${email}`} 
+                        <a
+                            href={`mailto:${email}`}
                             className="footer-contact-item"
                             onClick={handleEmailClick}
                         >
@@ -56,7 +56,7 @@ const Contact = () => {
                 </div>
 
                 <div className="footer-bottom">
-                    <p>&copy; {new Date().getFullYear()} CineMenu. Todos os direitos reservados.</p>
+                    <p>&copy; {new Date().getFullYear()} DVDweb. Todos os direitos reservados.</p>
                 </div>
             </div>
         </footer>
