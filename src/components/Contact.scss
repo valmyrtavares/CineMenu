@@ -86,6 +86,58 @@
             }
         }
     }
+
+    .email-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        .copy-badge {
+            position: absolute;
+            top: -45px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--color-accent-primary);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            animation: slideUpFade 0.3s ease-out;
+            pointer-events: none;
+
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: -6px;
+                left: 50%;
+                transform: translateX(-50%);
+                border-left: 6px solid transparent;
+                border-right: 6px solid transparent;
+                border-top: 6px solid var(--color-accent-primary);
+            }
+
+            svg {
+                font-size: 0.9rem;
+            }
+        }
+    }
+}
+
+@keyframes slideUpFade {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 10px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
 }
 
 .footer-bottom {

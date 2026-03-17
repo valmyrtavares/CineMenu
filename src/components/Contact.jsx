@@ -1,9 +1,20 @@
-import React from 'react';
-import { FaWhatsapp, FaEnvelope } from 'react-icons/fa';
+import React, { useState } from 'react';
+import { FaWhatsapp, FaEnvelope, FaCheck } from 'react-icons/fa';
 import { getWhatsAppUrl } from '../utils/whatsapp';
 import './Contact.scss';
 
 const Contact = () => {
+    const [copied, setCopied] = useState(false);
+    const email = "contato@dvdweb.com.br";
+
+    const handleEmailClick = (e) => {
+        // Copy to clipboard
+        navigator.clipboard.writeText(email).then(() => {
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        });
+    };
+
     return (
         <footer className="footer-section" id="contato">
             <div className="container">
@@ -28,9 +39,20 @@ const Contact = () => {
                     >
                         <FaWhatsapp /> <span>Falar no WhatsApp</span>
                     </button>
-                    <a href="mailto:contato@cinemenu.com.br" className="footer-contact-item">
-                        <FaEnvelope /> <span>contato@cinemenu.com.br</span>
-                    </a>
+                    <div className="email-wrapper">
+                        <a 
+                            href={`mailto:${email}`} 
+                            className="footer-contact-item"
+                            onClick={handleEmailClick}
+                        >
+                            <FaEnvelope /> <span>{email}</span>
+                        </a>
+                        {copied && (
+                            <div className="copy-badge">
+                                <FaCheck /> E-mail copiado!
+                            </div>
+                        )}
+                    </div>
                 </div>
 
                 <div className="footer-bottom">
